@@ -35,10 +35,21 @@ const limiter = rateLimit({
 });
 
 app.use(limiter);
-
-// Random affirmation endpoint
+app.get('/', (req, res) => {
+  res.json({ message: "Welcome to the Affirmations API! Use GET /affirmation to receive a random affirmation. Use the /affirmation/self-esteem to specify a category. Categories are: self-esteem, health, career, productivity, happiness and abundance." });
+});
+// Random affirmation endpoint for self-esteem
 app.get('/affirmation', (req, res) => {
-  const affirmation = affirmations[Math.floor(Math.random() * affirmations.length)];
+  const categoryAffirmations = affirmations["self-esteem"] ;
+  const affirmation = categoryAffirmations[Math.floor(Math.random() * categoryAffirmations.length)];
+  res.json({ affirmation });
+});
+
+// Random affirmation endpoint, default is self-esteem
+app.get('/affirmation/:category', (req, res) => {
+  const category = req.params.category || 'self-esteem';
+  const categoryAffirmations = affirmations[category] || [];
+  const affirmation = categoryAffirmations[Math.floor(Math.random() * categoryAffirmations.length)];
   res.json({ affirmation });
 });
 
