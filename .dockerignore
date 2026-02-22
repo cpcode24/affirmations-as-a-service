@@ -1,0 +1,16 @@
+node_modules/
+dist/
+out/
+.tmp/
+.cache/
+
+# Ignore environment and config files (sensitive data)
+*.env*
+*.log
+
+# Ignore local development files
+.git/
+.gitignore
+.vscode/
+*.swp
+.DS_Store
